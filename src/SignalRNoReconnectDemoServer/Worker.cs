@@ -57,14 +57,14 @@ namespace SignalRNoReconnectDemoServer
         private async Task _serverController_ClientListChanged(ConnectionEventArgs connectionEventArgs)
         {
             _logger.LogInformation("Client list changed");
-            //try
-            //{
-            //    await _semaphoreSlim.WaitAsync().ConfigureAwait(false);
-            //}
-            //finally
-            //{
-            //    _semaphoreSlim.Release();
-            //}
+            try
+            {
+                await _semaphoreSlim.WaitAsync().ConfigureAwait(false);
+            }
+            finally
+            {
+                _semaphoreSlim.Release();
+            }
         }
 
         private async Task<bool> _serverController_TransportMessageReceivedAsync(TransportMessage message)
